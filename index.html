@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="score" style="text-align: center; margin-top: 50px;"> <h2>Score 0</h2> </div>
+	<div class="main" style="">
+		<div class="hole" style="position: absolute; top: 300px; left: 1000px;"></div>
+		<div class="hole" style="position: absolute; top: 300px; left: 800px;"></div>
+		<div class="hole" style="position: absolute; top: 300px; left: 600px;"></div>
+		<div class="hole" style="position: absolute; top: 300px; left: 400px;"></div>
+		<div class="hole" style="position: absolute; top: 300px; left: 200px;"></div>
+		<div class="hole" style="position: absolute; top: 300px; left: 0px;"></div>
+		<script type="text/javascript">
+			let scoreShow = document.querySelector('.score')
+			let main = document.querySelector('.main')
+			let holes = document.querySelectorAll('.hole')
+			let img = document.createElement('img')
+			document.body.appendChild(img)
+			img.classList.add('krot')
+			let lastRand = 0
+			setInterval(show ,1000)
+			let score = 0
+
+			function show() {
+				let rand = Math.floor( Math.random() * holes.length)
+
+				if (rand != lastRand) {
+					img.src = 'mole.svg'
+					img.style.top = holes[rand].getBoundingClientRect().top - 100 + 'px' 
+					img.style.left = holes[rand].getBoundingClientRect().left + 30 + 'px'
+				}
+				lastRand = rand
+			}
+			img.onclick = function(){
+				if (score >= 5) {
+					main.style.display = 'none'
+					img.style.display = 'none'
+					let div = document.createElement('div')
+					document.body.appendChild(div)
+					div.classList.add('.win')
+					div.innerHTML = 'You win!'
+				} 
+				else {
+					score++;
+					scoreShow.innerHTML = 'Score :' + score
+					img.style.display = 'none'
+					show()
+					img.style.display = 'inline'
+				}
+			}
+
+		</script>
+	</div>
+</body>
+</html>
